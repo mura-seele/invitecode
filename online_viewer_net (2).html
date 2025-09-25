@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>You've Been Invited to Comet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Apply custom fonts */
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .font-serif-display {
+        font-family: 'Source Serif 4', serif;
+      }
+
+      /* Animated background curves for visual flair */
+      .bg-curves {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+      }
+      .curve {
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        animation: rotate 40s linear infinite;
+      }
+      .curve-1 {
+        width: 150vmax;
+        height: 150vmax;
+        top: -50vmax;
+        right: -50vmax;
+      }
+      .curve-2 {
+        width: 120vmax;
+        height: 120vmax;
+        bottom: -60vmax;
+        left: -20vmax;
+        animation-direction: reverse;
+        animation-duration: 50s;
+      }
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-black text-gray-200 flex items-center justify-center min-h-screen p-4 overflow-hidden"
+  >
+    <div class="bg-curves">
+      <div class="curve curve-1"></div>
+      <div class="curve curve-2"></div>
+    </div>
+
+    <main class="w-full">
+      <div id="loading-state" class="text-center">
+        <div class="flex justify-center items-center">
+          <div
+            class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400"
+          ></div>
+        </div>
+        <p class="mt-4 text-gray-400">Claiming your invitation...</p>
+      </div>
+
+      <div id="content-state" class="hidden">
+        <div
+          class="w-full max-w-5xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 px-4"
+        >
+          <div class="w-full max-w-xs sm:max-w-sm shrink-0">
+            <div
+              class="bg-gray-900/50 backdrop-blur-sm p-3 rounded-2xl border border-white/10 shadow-2xl shadow-cyan-500/10"
+            >
+              <div class="aspect-[3/4] rounded-lg overflow-hidden relative">
+                <video
+                  src="https://ik.imagekit.io/dwovit2u8/0_1080_N.mp4?updatedAt=1758822992574"
+                  autoplay
+                  loop
+                  muted
+                  playsinline
+                  class="w-full h-full object-cover"
+                ></video>
+                <div
+                  class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent"
+                >
+                  <p class="text-white font-semibold">Comet Invitation</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="flex flex-col items-center lg:items-start text-center lg:text-left"
+          >
+            <h1
+              class="font-serif-display text-4xl sm:text-5xl font-semibold text-white leading-tight"
+            >
+              You've been invited<br />to Comet
+            </h1>
+            <p class="mt-4 text-gray-400">
+              Invited by
+              <strong id="kol-name" class="font-semibold text-gray-200"
+                >...</strong
+              >
+            </p>
+            <a
+              id="continue-link"
+              href="#"
+              class="mt-8 inline-flex items-center justify-center gap-3 text-lg font-semibold text-cyan-300 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 backdrop-blur-lg px-8 py-3 rounded-full transition-all duration-300 shadow-lg shadow-cyan-500/10 hover:shadow-cyan-500/20 transform hover:scale-105"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>Claim Invite</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hidden">
+          <img id="kol-photo" src="" alt="" />
+          <span id="invite-code"></span>
+          <button id="copy-button"></button>
+        </div>
+      </div>
+
+      <div id="error-state" class="hidden text-center max-w-md mx-auto">
+        <div
+          class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-900/50 border border-red-500/30"
+        >
+          <svg
+            class="h-6 w-6 text-red-400"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </div>
+        <h2 class="mt-4 text-xl font-bold text-red-400">
+          Oops! Something went wrong.
+        </h2>
+        <p
+          id="error-message"
+          class="mt-2 text-red-300 bg-red-900/50 p-3 rounded-md border border-red-500/30"
+        ></p>
+      </div>
+    </main>
+
+    <script>
+      // --- YOUR ORIGINAL SCRIPT ---
+      // This script has not been changed and will work with the new design.
+      document.addEventListener('DOMContentLoaded', () => {
+        const loadingState = document.getElementById('loading-state');
+        const contentState = document.getElementById('content-state');
+        const errorState = document.getElementById('error-state');
+        const errorMessage = document.getElementById('error-message');
+        const kolPhoto = document.getElementById('kol-photo');
+        const kolName = document.getElementById('kol-name');
+        const inviteCodeElem = document.getElementById('invite-code');
+        const continueLink = document.getElementById('continue-link');
+        const copyButton = document.getElementById('copy-button');
+        const getDeviceId = () => {
+          let deviceId = localStorage.getItem('uniqueDeviceId');
+          if (!deviceId) {
+            deviceId = 'guest-' + crypto.randomUUID();
+            localStorage.setItem('uniqueDeviceId', deviceId);
+          }
+          return deviceId;
+        };
+        const getKolCode = () => {
+          console.log('--- Starting Advanced KOL Code Search ---');
+          const sourcesToSearch = [window.location.href];
+          for (const source of sourcesToSearch) {
+            if (!source) continue;
+            console.log(`Scanning source: ${source}`);
+            try {
+              const match = source.match(/[?&#]kol=([^&#]*)/);
+              if (match && match[1]) {
+                const foundCode = decodeURIComponent(match[1]);
+                console.log(`SUCCESS: Found kol='${foundCode}' in ${source}`);
+                return foundCode;
+              }
+            } catch (e) {
+              console.warn(`Error while scanning source: ${source}`, e);
+            }
+          }
+          console.error(
+            "FAILURE: Could not find 'kol=' parameter in any available URL source."
+          );
+          return null;
+        };
+        
+        // This function is no longer needed as the copy button is removed,
+        // but we keep it here to avoid breaking anything if it were referenced elsewhere.
+        const handleCopy = () => {
+          const codeToCopy = inviteCodeElem.textContent;
+          navigator.clipboard.writeText(codeToCopy).catch((err) => {
+            console.error('Failed to copy code: ', err);
+          });
+        };
+        if (copyButton) {
+          copyButton.addEventListener('click', handleCopy);
+        }
+
+        const processInvite = async () => {
+          try {
+            const kolCode = getKolCode();
+            if (!kolCode) {
+              throw new Error(
+                'Could not automatically find the invite code. Please double-check the link you used.'
+              );
+            }
+            const deviceId = getDeviceId();
+            const apiUrl = new URL(
+              'https://script.google.com/macros/s/AKfycby42z--ewLYgCKlNVL4dzrfgZcvRo5JVnipZnHH-fGl3KrNe4XnOVszrHNKvIEy2aVt/exec'
+            );
+            apiUrl.searchParams.append('kol', kolCode);
+            apiUrl.searchParams.append('deviceId', deviceId);
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            if (!response.ok || data.error) {
+              throw new Error(
+                data.error || `API request failed (status: ${response.status})`
+              );
+            }
+            kolPhoto.src = data.kolPhotoUrl;
+            kolName.textContent = data.kolName;
+            inviteCodeElem.textContent = data.inviteCode;
+            continueLink.href = data.adjustLink;
+            loadingState.classList.add('hidden');
+            contentState.classList.remove('hidden');
+          } catch (error) {
+            console.error('Error processing invite:', error);
+            errorMessage.textContent = error.message;
+            loadingState.classList.add('hidden');
+            errorState.classList.remove('hidden');
+          }
+        };
+        processInvite();
+      });
+    </script>
+  </body>
+</html>
