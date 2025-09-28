@@ -81,6 +81,26 @@
         opacity: 1;
         top: -45px;
       }
+
+      /* --- NEW: Green Glow + Glitch Effect --- */
+      .link-glow {
+        position: relative;
+        text-shadow: 0 0 5px rgba(135, 181, 130, 0.5), /* #87b582 glow */
+                     0 0 10px rgba(135, 181, 130, 0.4);
+        animation: glitch 3s linear infinite;
+      }
+      @keyframes glitch {
+        0%, 7%, 9%, 10.5%, 100% {
+          text-shadow: 0 0 5px rgba(135, 181, 130, 0.5),
+                       0 0 10px rgba(135, 181, 130, 0.4);
+        }
+        7.5%, 9.5%, 11% {
+          text-shadow: 0 0 8px rgba(200, 255, 200, 0.8),
+                       0 0 15px rgba(135, 181, 130, 0.6),
+                       -0.5px 0 1px rgba(255,0,0,0.4),
+                       0.5px 0 1px rgba(0,255,255,0.4);
+        }
+      }
     </style>
   </head>
   <body
@@ -210,7 +230,11 @@
                   </button>
                 </div>
                 <div class="mt-6 flex flex-col items-center lg:items-start gap-4">
-                    <a id="continue-link" href="#" class="inline-flex items-center gap-2 text-[#87b582] hover:text-[#a1d49c] font-semibold transition-colors hover:underline">
+                    <a id="continue-link" 
+                       href="#" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="inline-flex items-center gap-2 text-[#87b582] font-semibold transition-colors hover:underline link-glow">
                         <span>Build Your Worlds Now on SEELE AI</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                     </a>
